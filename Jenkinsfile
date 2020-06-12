@@ -38,7 +38,7 @@ node ('slave01'){ // Assign to node with labled "slave01" to run this task
         sh 'sleep 2 && cd src && cp .env.example .env'
         sh 'sleep 2 && cd src && php artisan key:generate'
         sh 'sleep 2 && cd src && php artisan config:cache'
-        sh 'sleep 2 && cd src && php artisan serve'
+        //sh 'sleep 2 && cd src && php artisan serve'
         //jiraSendDeploymentInfo environmentId: 'us-dev-1', environmentName: 'us-dev-1', environmentType: 'development', site: 'cloudigital.atlassian.net'
         
     }
