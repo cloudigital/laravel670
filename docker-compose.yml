@@ -1,0 +1,34 @@
+version: '3'
+services:
+    nginx:
+        image: cloudigital/nginx:latest
+        ports:
+            - "9002:8001"
+        networks:
+            - netlaravel690
+        links:
+            - web
+
+    web:
+        image: cloudigital/laravel690:latest
+        environment:
+            - "DB_PORT=3306"
+            - "DB_HOST=database"
+        networks:
+            - netlaravel690
+
+    database:
+        image: mysql:5.7.18
+        environment:
+          MYSQL_ROOT_PASSWORD: myrootpassword
+          MYSQL_DATABASE: laravel
+          MYSQL_USER: laravel
+          MYSQL_PASSWORD: secret
+        ports:
+            - "33062:3306"
+        networks:
+            - netlaravel690
+
+
+networks:
+    netlaravel690:
