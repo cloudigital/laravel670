@@ -12,7 +12,7 @@ node ('slave01'){ // Assign to node with labled "slave01" to run this task
         
         //build nginx + php containers
         docker.build("cloudigital/nginx", "-f Dockerfile-nginx .")
-        docker.build("cloudigital/laravel690", "-f Dockerfile-laravel .")
+        //docker.build("cloudigital/laravel690", "-f Dockerfile-laravel .")
         
         //Notify build status to Jira
         jiraSendBuildInfo branch: 'LAR690-2', site: 'cloudigital.atlassian.net'
