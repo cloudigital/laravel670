@@ -12,7 +12,7 @@ node ('slave01'){ // Assign to node with labled "slave01" to run this task
         
         //build nginx + php containers
         docker.build("cloudigital/nginx", "-f Dockerfile-nginx .")
-        //docker.build("cloudigital/laravel690", "-f Dockerfile-laravel .")
+        docker.build("cloudigital/laravel690", "-f Dockerfile-laravel .")
         
         //Notify build status to Jira
         jiraSendBuildInfo branch: 'LAR690-2', site: 'cloudigital.atlassian.net'
@@ -22,7 +22,7 @@ node ('slave01'){ // Assign to node with labled "slave01" to run this task
         //2. Run Unit Test script inside via testsuite
         docker.image('cloudigital/laravel690').inside {
             sh 'php --version'
-            //sh 'cd /var/www/laravel690 && ./vendor/bin/phpunit --testsuite Unit'
+            sh 'cd /var/www/laravel690 && ./vendor/bin/phpunit --testsuite Unit'
         }
     }
 
@@ -47,6 +47,6 @@ node ('slave01'){ // Assign to node with labled "slave01" to run this task
 
     stage ('=> Run Feature Test') {
         // 4. A new deployed container comes and run Feature Test script inside via testsuite
-        //sh 'sleep 5 && cd src && /usr/local/bin/docker-compose run web ./vendor/bin/phpunit --testsuite Feature'
+        sh 'sleep 5 && cd src && /usr/local/bin/docker-compose run web ./vendor/bin/phpunit --testsuite Feature'
     }
 }
