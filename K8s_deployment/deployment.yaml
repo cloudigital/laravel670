@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atm-billing-api
+  namespace: automation-storage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: atm-billing-api
+  template:
+    metadata:
+      labels:
+        app: atm-billing-api
+    spec:
+      volumes:
+        - name: log-volume
+          persistentVolumeClaim:
+            claimName: atm-billing-api-logs-pvc
+        - name: media-volume
+          persistentVolumeClaim:
+            claimName: atm-billing-api-media-pvc
+      containers:
+        - name: billing-api
+          image: 172.16.90.130:8082/storage/billing:54
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
+          resources:
+            limits:
+              cpu: "2"
+              memory: 2Gi
+            requests:
+              cpu: "1"
+              memory: 2Gi
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /data/service/logs
+              name: log-volume
+            - mountPath: /data/media
+              name: media-volume
+      tolerations:
+        - key: "group"
+          operator: Equal
+          value: "automation"
+          effect: NoSchedule
+      restartPolicy: Always
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: private-artifact-key
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 1
