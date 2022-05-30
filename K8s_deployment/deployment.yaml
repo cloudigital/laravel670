@@ -22,7 +22,7 @@ spec:
             claimName: lavarel-web-media-pvc
       containers:
         - name: lavarel-web
-          image: 172.16.90.130:8082/lavarel:54
+          image: cloudigital/laravel690:latest
           ports:
             - containerPort: 8080
               protocol: TCP
