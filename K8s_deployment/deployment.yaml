@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: atm-billing-api
-  namespace: automation-storage
+  name: lavarel-web
+  namespace: lavarel
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: atm-billing-api
+      app: lavarel-web
   template:
     metadata:
       labels:
-        app: atm-billing-api
+        app: lavarel-web
     spec:
       volumes:
         - name: log-volume
           persistentVolumeClaim:
-            claimName: atm-billing-api-logs-pvc
+            claimName: lavarel-web-logs-pvc
         - name: media-volume
           persistentVolumeClaim:
-            claimName: atm-billing-api-media-pvc
+            claimName: lavarel-web-media-pvc
       containers:
-        - name: billing-api
-          image: 172.16.90.130:8082/storage/billing:54
+        - name: lavarel-web
+          image: 172.16.90.130:8082/lavarel:54
           ports:
             - containerPort: 8080
               protocol: TCP
