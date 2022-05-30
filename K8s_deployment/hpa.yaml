@@ -1,12 +1,12 @@
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: atm-billing-api-api
-  namespace: automation-storage
+  name: lavarel-web 
+  namespace: lavarel
 spec:
   scaleTargetRef:
     kind: Deployment
-    name: atm-billing-api-api
+    name: lavarel-web
     apiVersion: apps/v1
   minReplicas: 1
   maxReplicas: 10
